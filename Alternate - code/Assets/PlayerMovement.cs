@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool crouch = false;
     bool switching = false;
+    int respawn = 0;
     float posx = -6f;
     float posy = 2f;
 
@@ -53,7 +54,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 crouch = false;
             }
-            if (Input.GetButtonDown("Switch"))
+
+            //Respawn code
+            if (GameObject.Find("Player").transform.position.y < -10)
+            {
+                posx = -6;
+                posy = 2;
+                respawn = 2;
+            }
+
+            //Switching code
+            if (Input.GetButtonDown("Switch") || respawn > 0)
             {
                 if (switching == false)
                 {
@@ -76,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
                 index++;
 
                 }
+                respawn--;
             }
         }
 
